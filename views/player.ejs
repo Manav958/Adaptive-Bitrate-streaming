@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Video Player</title>
+  <style>
+    
+:root {
+    --vue-green: #42b883;
+    --vue-black: #35495e;
+    --vue-light: #ffffff;
+}
+
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: rgb(20, 23, 26);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    color: var(--vue-light);
+}
+
+
+h1 {
+    font-size: 72px;
+    background: linear-gradient(to right, #42b883,rgb(106, 117, 182)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+h1 :hover{
+    font-size: 72px;
+    background: linear-gradient(to right, rgb(106, 117, 182),#42b883
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+}
+
+nav {
+    display: flex;
+    gap: 30px;
+}
+
+nav a {
+    font-size: 18px;
+    color: var(--vue-light);
+    text-decoration: none;
+    background-color: var(--vue-green);
+    padding: 12px 25px;
+    border-radius: 5px;
+
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+nav a:hover {
+    background-color: #5fcf9d; /* Slightly darker green on hover */
+    transform: translateY(-3px); /* Slight lift on hover */
+    color: rgb(255, 255, 255);
+    box-shadow: 0px 0px 20px 5px rgba(66, 184, 131, 0.8);
+    
+   
+}
+
+/* Add responsiveness */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 28px;
+    }
+
+    nav a {
+        font-size: 16px;
+        padding: 10px 20px;
+    }
+}
+
+  </style>
+  <link rel="stylesheet" href="https://unpkg.com/cloudinary-video-player/dist/cld-video-player.min.css">
+  <script src="https://unpkg.com/cloudinary-core/cloudinary-core-shrinkwrap.min.js"></script>
+  <script src="https://unpkg.com/cloudinary-video-player/dist/cld-video-player.min.js"></script>
+</head>
+<body>
+  <h1>Video Player</h1>
+  <video id="cld-video-player"></video>
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const cloudName = "<%= cloudName %>"; 
+      const publicId = "<%= publicId %>"; 
+
+      const cld = cloudinary.Cloudinary.new({ cloud_name: cloudName });
+
+      const options = {
+        sourceTypes: ["hls", "mp4"],
+        muted: true,
+        controls: true,
+        width: 500,
+        sourceTransformation: {
+          "hls": [{ streaming_profile: "full_hd" }],
+          "mp4": [{ quality: "auto" }],
+        },
+        playbackRates: [0.5, 1, 1.5, 2],
+      };
+
+      // Create video player instance
+      const videoPlayer = cld.videoPlayer("cld-video-player", options);
+
+      // Handle source errors
+      videoPlayer.on('error', (event) => {
+        console.error('Video Player Error:', event);
+      });
+
+      // Set video source
+      videoPlayer.source(publicId);
+    });
+  </script>
+</body>
+</html>

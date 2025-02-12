@@ -1,0 +1,38 @@
+1. how does HLS streaming technology work?
+
+    First, the HLS protocol chops up MP4 video content into short (10-second) chunks with the .ts file extension 
+    (MPEG2 Transport Stream). 
+
+    Next, an HTTP server stores those streams, and HTTP delivers these short clips to viewers on their devices. 
+
+    HLS will play video encoded with the H.264 or HEVC/H.265 codecs.
+
+    The HTTP server also creates an M3U8 playlist file (e.g., manifest file) that serves as an index for the video chunks.  
+    That way, the file will still exist even 
+    if you choose to broadcast live using only a single quality option.
+
+2. One drawback
+
+    HLS streaming does have one disadvantage,
+    which we mentioned above.
+    Namely, it has a relatively higher latency than some other protocols. 
+    That means that HLS streams are not quite as “live” as the term live streaming suggests.  
+    Generally, with HLS, viewers can experience delays of up to 30 seconds (or more, in some cases). 
+    That means that if you’re streaming a video, it’ll take 30 seconds to reach the viewer, 
+    so they see the content as close to live as possible.  
+
+
+3. 
+project/
+├── models/
+│   └── video.js
+├── routes/
+│   └── video.js
+├── views/
+│   └── index.ejs
+├── public/
+│   └── style.css
+├── uploads/
+├── server.js
+├── .env
+└── package.json

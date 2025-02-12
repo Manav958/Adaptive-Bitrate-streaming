@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Videos</title>
+    <link rel="stylesheet" href="s2.css">
+</head>
+<body>
+    <h1>VIEW CONTENT</h1>
+
+    <!-- Loop through the videos and list them -->
+    <div id="main">
+        <ul>
+            <% vids.forEach(vid => { %>
+            <li>
+                <h2><%= vid.name %></h2>
+                <a href="/stream?PID=<%= vid.PID %>">Watch</a>
+            </li>
+            <% }) %>
+        </ul>
+        
+    </div>
+</body>
+</html>
